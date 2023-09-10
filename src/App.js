@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      mosters: [
+        {
+          name: 'Linda',
+          id: '1',
+        },
+        {
+          name: 'Jack',
+          id: '2',
+        },
+        {
+          name: 'Frank',
+          id: '3',
+        },
+        {
+          name: 'Andrei',
+          id: '4',
+        },
+      ],
+    };
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.mosters.map(moster => {
+          return (
+            <div key={moster.id}>
+              <h1>{moster.name}</h1>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 }
 
 export default App;
