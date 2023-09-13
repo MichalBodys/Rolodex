@@ -6,34 +6,48 @@ class App extends Component {
     super();
 
     this.state = {
-      mosters: [
-        {
-          name: 'Linda',
-          id: '1',
-        },
-        {
-          name: 'Jack',
-          id: '2',
-        },
-        {
-          name: 'Frank',
-          id: '3',
-        },
-        {
-          name: 'Andrei',
-          id: '4',
-        },
-      ],
+      monsters: [],
+      SearchField: '',
     };
+    console.log('constructor');
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(users =>
+        this.setState(() => {
+          return { monsters: users };
+        })
+      );
   }
 
   render() {
+    const filteredMOnsters = this.state.monsters.filter(monster => {
+      return monster.name.toLocaleLowerCase().includes(this.state.SearchField);
+    });
+
+    console.log('render');
     return (
       <div className="App">
-        {this.state.mosters.map(moster => {
+        <input
+          className="search-box"
+          type="search"
+          placeholder="Search monsters"
+          onChange={event => {
+            console.log(event.target.value);
+            const SearchField = event.target.value.toLocaleLowerCase();
+
+            this.setState(() => {
+              return { SearchField };
+            });
+          }}
+        />
+        {filteredMOnsters.map(monster => {
           return (
-            <div key={moster.id}>
-              <h1>{moster.name}</h1>
+            <div key={monster.id}>
+              <h1>{monster.name}</h1>
             </div>
           );
         })}
@@ -41,5 +55,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
