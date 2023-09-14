@@ -8,7 +8,7 @@ class App extends Component {
     super();
 
     this.state = {
-      monsters: [],
+      robots: [],
       SearchField: '',
     };
     console.log('constructor');
@@ -20,7 +20,7 @@ class App extends Component {
       .then(response => response.json())
       .then(users =>
         this.setState(() => {
-          return { monsters: users };
+          return { robots: users };
         })
       );
   }
@@ -37,17 +37,19 @@ class App extends Component {
   render() {
     console.log('render');
 
-    const { monsters, SearchField } = this.state;
+    const { robots, SearchField } = this.state;
     const { onSearchChange } = this;
 
-    const filteredMOnsters = monsters.filter(monster => {
-      return monster.name.toLocaleLowerCase().includes(SearchField);
+    const filteredrobots = robots.filter(robot => {
+      return robot.name.toLocaleLowerCase().includes(SearchField);
     });
 
     return (
+
       <div className="App">
-        <SearchBox onChangeHandler={onSearchChange}  placeholder={'Search monsters'} className={'search-box'} />
-        <CardList monsters={filteredMOnsters} />
+      <h1 className='app-title'>Robots Rolodex</h1>
+      <SearchBox onChangeHandler={onSearchChange}  placeholder={'Search robots'} className={'robots-search-box'} />
+        <CardList robots={filteredrobots} />
       </div>
     );
   }
